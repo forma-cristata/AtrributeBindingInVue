@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Blog</title>
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+<!--We will use the dark class if the darkModeSet is true.-->
+    <div :style="[baseStyle, darkModeSet ? darkMode : '']">
+        <header>
+            <h1>{{name}}'s Blog</h1><!--Putting the name properties' value from JS
+            LearnVue3 Cheatsheet on canvas-->
+            <nav>
+                <!--LOOP
+                v-for is a vue directive
+                    All vue directives start with a v- prefix
+                    -->
+                <ul>
+                    <li v-for="link in links" :key="link.id" :data-example="link.id"><a v-bind:href="`${link.url}`">{{link.name}}</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="blog-wrapper">
+                <button @click="toggleDarkMode">{{darkModeSet? '&#9788;' : '&#9789;'}}</button>
+                <!-- No PARENTHESIS Need a better explanation here honestly.-->
+                <!-- BLOG SECTION
+                We can use vue to control the full page or just parts
+                Here, we want to use this <section> element and mount an application to it.-
+
+                 If we have attributes we want to make dynamic, we need to use the v-bind directive
+                 The colon before key and data-example indicate their values are bound to variables
+
+                Surrounding the loop iteration value in parenthesis gives us access to the index, if we use a tuple for loop
+                Index must be the second position
+
+                Must review the transcript here to learn more.
+                 -->
+                <section id="blog">
+                    <article v-for="(post, index) in posts" :key="post.id" :data-example="post.id">
+                        <!--Data example attribute: -->
+                        {{index}}
+                        <h3>{{post.title}}</h3>
+                        <p>{{post.body}}</p>
+                        <p class="read-more">Read More</p>
+                    </article>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Import of Vue must happen before any Vue code can execute
+    This script fetches the latest version of Vue
+    Hover over the URL and download the script, this allows it to know your symbols-->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!--We can move the script to the top for vue or we can hide the page until rendering is complete, both options are okay-->
+<script type="module" src="index.mjs"></script>
+</body>
+</html>
